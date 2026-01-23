@@ -1,0 +1,104 @@
+/**
+ * Simple in-memory cache manager for blockchain data
+ * Reduces API calls and improves performance
+ */
+class CacheManager {
+    constructor() {
+        this.cache = new Map();
+        this.defaultTTL = {
+            balance: 5 * 60 * 1000,      // 5 minutes
+            price: 1 * 60 * 1000,        // 1 minute
+            tokenMetadata: 60 * 60 * 1000 // 1 hour
+        };
+    }
+
+    /**
+     * Set a value in cache with TTL
+     * @param {string} key - Cache key
+     * @param {*} value - Value to cache
+     * @param {number} ttl - Time to live in milliseconds
+     */
+    set(key, value, ttl = this.defaultTTL.balance) {
+        const expiresAt = Date.now() + ttl;
+        this.cache.set(key, { value, expiresAt });
+    }
+
+    /**
+     * Get a value from cache
+     * @param {string} key - Cache key
+     * @returns {*} Cached value or null if expired/not found
+     */
+    get(key) {
+        const cached = this.cache.get(key);
+        
+        if (!cached) {
+            return null;
+        }
+
+        // Check if expired
+        if (Date.now() > cached.expiresAt) {
+            this.cache.delete(key);
+            return null;
+        }
+
+        return cached.value;
+    }
+
+    /**
+     * Check if a key exists and is not expired
+     * @param {string} key - Cache key
+     * @returns {boolean}
+     */
+    has(key) {
+        return this.get(key) !== null;
+    }
+
+    /**
+     * Delete a specific key from cache
+     * @param {string} key - Cache key
+     */
+    delete(key) {
+        this.cache.delete(key);
+    }
+
+    /**
+     * Clear all cache
+     */
+    clear() {
+        this.cache.clear();
+    }
+
+    /**
+     * Clear expired entries
+     */
+    clearExpired() {
+        const now = Date.now();
+        for (const [key, data] of this.cache.entries()) {
+            if (now > data.expiresAt) {
+                this.cache.delete(key);
+            }
+        }
+    }
+
+    /**
+     * Get cache statistics
+     * @returns {object} Cache stats
+     */
+    getStats() {
+        this.clearExpired();
+        return {
+            size: this.cache.size,
+            keys: Array.from(this.cache.keys())
+        };
+    }
+}
+
+// Create singleton instance
+const cacheManager = new CacheManager();
+
+// Auto-cleanup expired entries every 10 minutes
+setInterval(() => {
+    cacheManager.clearExpired();
+}, 10 * 60 * 1000);
+
+module.exports = cacheManager;

